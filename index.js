@@ -9,8 +9,8 @@ app.get("/",function(req,res){
 })
 
 //criando uma nova rota
-app.get("/sobre",function(req,res){
-    res.send("esta é a rota da pagina sobre!")
+app.get("/sobre/:nome/:idade",function(req,res){
+    res.send("<h1>Ola "+req.params.nome+"</h1>")
 })
 
 
