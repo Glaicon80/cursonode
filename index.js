@@ -5,7 +5,7 @@ const app = express()
 
 
 app.get("/",function(req,res){
-    res.send("Seja bem vindo ao meu site!")
+    res.sendFile(__dirname+"/html/index.html")
 })
 
 //criando uma nova rota
