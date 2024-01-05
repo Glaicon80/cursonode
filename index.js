@@ -1,23 +1,11 @@
-
-const express = require('express')
-
+const express = require("express")
 const app = express()
+const port = 3000
 
-
-app.get("/",function(req,res){
-    res.sendFile(__dirname+"/html/index.html")
+app.listen(port,(error)=>{
+if(error){
+    console.log("Erro no servidor "+ error)
+    return
+}
+console.log("Servidor rodando na porta "+ port )
 })
-
-//criando uma nova rota
-app.get("/sobre/:nome/:idade",function(req,res){
-    res.send("<h1>Ola "+req.params.nome+"</h1>")
-})
-
-
-app.listen(8081,function(){
-    console.log("Servidor rodando na url http://localhost:8081")
-})
-
-
-
-
