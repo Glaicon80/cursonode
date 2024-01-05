@@ -5,7 +5,7 @@ class AtendimentoControler{
     }
 
     criar(){
-        return "criando atendimento.."
+        return "criando atendimento..."
     }
 
     alterar(id){
