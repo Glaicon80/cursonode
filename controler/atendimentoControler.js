@@ -1,20 +1,25 @@
+const atendimentoModel = require("../model/atendimentoModel")
 class AtendimentoControler{
 
-    buscar(){
-        return "Buscando atendimentos.."
+    buscarTodos(){
+        return atendimentoModel.listarTodos()
     }
 
-    criar(){
-        return "criando atendimento..."
+    buscar(id){
+        return atendimentoModel.listar(id)
     }
 
-    alterar(id){
+    criar(novoAtendimento){
+        return atendimentoModel.criar(novoAtendimento)
+    }
+
+    alterar(alterarAtendimento){
       
-        return "alterando atendimento.. " + id
+        return atendimentoModel.alterar(alterarAtendimento)
     }
 
     deletar(id){
-        return "deletando atendimento.. " + id
+        return atendimentoModel.deletar(id)
     }
 
 }

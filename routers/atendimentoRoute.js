@@ -2,26 +2,40 @@ const express = require("express")
 const router = express.Router()
 const atendimentoControler = require("../controler/atendimentoControler")
 
+
+
 router.get("/atendimentos",(req,res)=>{
-    const resposta = atendimentoControler.buscar()
-    res.send(resposta)
+    const listaAtendimento = atendimentoControler.buscarTodos()
+    listaAtendimento.then(atendimentos => res.status(200).json(atendimentos))
+                    .catch(error => res.status(400).json(error.message()))
+})
+
+router.get("/atendimento/:id",(req,res)=>{
+    const id = req.params.id
+    const listaAtendimento = atendimentoControler.buscar(id)
+    listaAtendimento.then(atendimentos => res.status(200).json(atendimentos))
+                    .catch(error => res.status(400).json(error))
 })
 
 router.post("/atendimento",(req,res)=>{
-    const resposta = atendimentoControler.criar()
-    res.send(resposta)
+    const novoAtendimento = req.body
+    const criarAtendimento = atendimentoControler.criar(novoAtendimento)
+    criarAtendimento.then(atendimentos => res.status(201).json(atendimentos))
+                    .catch(error => res.status(400).json(error))
 })
 
-router.put("/atendimento/:id",(req,res)=>{
-    const id = req.params.id
-    const resposta = atendimentoControler.alterar(id)
-    res.send(resposta)
+router.put("/atendimento",(req,res)=>{
+    const alterarAtendimento = req.body
+    const alterar = atendimentoControler.alterar(alterarAtendimento)
+    alterar.then(atendimentos => res.status(201).json(atendimentos))
+                    .catch(error => res.status(400).json(error))
 })
 
 router.delete("/atendimento/:id",(req,res)=>{
     const id = req.params.id
-    const resposta = atendimentoControler.deletar(id)
-    res.send(resposta)
+    const deletar = atendimentoControler.deletar(id)
+    deletar.then(atendimentos => res.status(201).json(atendimentos))
+    .catch(error => res.status(400).json(error))
 })
 
 module.exports = router

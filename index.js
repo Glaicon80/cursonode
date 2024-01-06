@@ -5,14 +5,20 @@ const routers = require("./routers")
 const conexao = require("./infraestrutura/conexao")
 const tabelas = require("./infraestrutura/tabelas")
 
-
 //configuração
 
 tabelas.init(conexao)
 
+
 //rotas
 
-routers(app)
+app.get('/', function (req, res) {
+   
+    res.sendFile(__dirname + "/bola.html");
+})
+ 
+
+routers(app,express)
 
 app.listen(port,(error)=>{
 if(error){
