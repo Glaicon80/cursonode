@@ -3,6 +3,7 @@ const app = express()
 const port = 8081
 const handlebars = require('express-handlebars')
 const bodyparser = require('body-parser')
+const Post = require('./models/Post')
 
 
 //configurando o handlebars
@@ -18,12 +19,26 @@ app.use(bodyparser.json())
 
 
 //rotas
+
+app.get("/",function(req,res){
+    res.render('home')
+})
+
 app.get("/cad", function(req,res){
     res.render('formulario')
 })
 
 app.post("/add",function(req,res){
-    res.send("Titulo: " + req.body.titulo + " <br>Conteudo: " + req.body.conteudo)
+   //create é uma promise, ou seja, vai ter then e o catch
+    Post.create({
+    titulo: req.body.titulo,
+    conteudo: req.body.conteuo
+   }).then(function(){
+        res.redirect('/')
+   })
+     .catch(function(error){
+        res.send('Houve um erro no registro do post: '+ error)
+     })
 })
 
 app.listen(port, function(){
