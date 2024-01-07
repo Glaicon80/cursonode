@@ -20,8 +20,17 @@ app.use(bodyparser.json())
 
 //rotas
 
+// findAll() vamos listas todos os itens da tabela postagems, tbm é uma promise.
+// agora alem de chamar o arquivo home tbm vamos enviar os dados
+// para isso usamos {} com objeto dentro. findAll() vai trazer um array de objetos
 app.get("/",function(req,res){
-    res.render('home')
+    Post.findAll().then(function(posts){
+        //console.log(posts) aqui a gente pode ver a lista de array de objetos
+        res.render('home',{posts:posts})
+    })
+              .catch(function(erro){
+                  res.send("Falha ao listas posts: " + erro)
+              })
 })
 
 app.get("/cad", function(req,res){
@@ -32,7 +41,7 @@ app.post("/add",function(req,res){
    //create é uma promise, ou seja, vai ter then e o catch
     Post.create({
     titulo: req.body.titulo,
-    conteudo: req.body.conteuo
+    conteudo: req.body.conteudo
    }).then(function(){
         res.redirect('/')
    })
