@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const port = 8081
 const handlebars = require('express-handlebars')
-const Sequelize = require('sequelize')
 const bodyparser = require('body-parser')
 
 
@@ -17,12 +16,6 @@ app.set('view engine', 'handlebars')
 app.use(bodyparser.urlencoded({extended: true}))
 app.use(bodyparser.json())
 
-
-//conexão parametro: banco de dados, usuario, senha, objeto json
-const sequelize = new Sequelize('sistemadecadastro', 'root', 'vegita1980', {
-    host: 'localhost',
-    dialect: 'mysql' //tipo de banco
-})
 
 //rotas
 app.get("/cad", function(req,res){
