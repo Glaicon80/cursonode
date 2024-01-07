@@ -3,6 +3,7 @@ const app = express()
 const port = 8081
 const handlebars = require('express-handlebars')
 const Sequelize = require('sequelize')
+const bodyparser = require('body-parser')
 
 
 //configurando o handlebars
@@ -11,6 +12,11 @@ const Sequelize = require('sequelize')
 //main vai ser o template principal do handlebars
 app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
+
+//configurando o body parser
+app.use(bodyparser.urlencoded({extended: true}))
+app.use(bodyparser.json())
+
 
 //conexão parametro: banco de dados, usuario, senha, objeto json
 const sequelize = new Sequelize('sistemadecadastro', 'root', 'vegita1980', {
@@ -24,7 +30,7 @@ app.get("/cad", function(req,res){
 })
 
 app.post("/add",function(req,res){
-    res.send("adicionar formulario")
+    res.send("Titulo: " + req.body.titulo + " <br>Conteudo: " + req.body.conteudo)
 })
 
 app.listen(port, function(){
