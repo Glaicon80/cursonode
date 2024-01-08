@@ -1,8 +1,12 @@
 <h2>Lista de posts:</h2>
 
+<a href="/cad"><button>Novo Post</button></a>
+
 {{#each posts}}
 
 <h2>{{dataValues.titulo}}</h2>
 <p>{{dataValues.conteudo}}</p>
+<a href="/deletar/{{dataValues.id}}"><button>Deletar</button></a>
+<a href="/selecionar/{{dataValues.id}}"><button>Atualizar</button></a>
 <hr>
 {{/each}}

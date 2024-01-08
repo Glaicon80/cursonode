@@ -1,0 +1,9 @@
+<form action="/atualizar" method="post">
+<p>Titulo:</p>
+<input type="text" name="titulo" value="{{posts.dataValues.titulo}}">
+<p>Conteudo:</p>
+<textarea name="conteudo">{{posts.dataValues.conteudo}}</textarea>
+<input type="hidden" name="id" value="{{posts.dataValues.id}}">
+<br><br>
+<input type="submit" value="Atualizar Postagem">
+</form>

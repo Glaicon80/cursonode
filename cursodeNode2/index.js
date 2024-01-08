@@ -24,7 +24,7 @@ app.use(bodyparser.json())
 // agora alem de chamar o arquivo home tbm vamos enviar os dados
 // para isso usamos {} com objeto dentro. findAll() vai trazer um array de objetos
 app.get("/",function(req,res){
-    Post.findAll().then(function(posts){
+    Post.findAll({order:[['id','desc']]}).then(function(posts){
         //console.log(posts) aqui a gente pode ver a lista de array de objetos
         res.render('home',{posts:posts})
     })
@@ -33,10 +33,24 @@ app.get("/",function(req,res){
               })
 })
 
+//selecinar um unico registro pelo id usamos o metodo findOne()
+app.get("/selecionar/:id",function(req,res){
+    Post.findOne({where:{'id':req.params.id}})
+    .then(function(posts){
+        //console.log(posts)
+        res.render('formAtualizar',{posts:posts})    
+    })
+    .catch(function(erro){
+        res.send("Falha ao selecionar post : " + erro)
+    })
+})
+
+
 app.get("/cad", function(req,res){
     res.render('formulario')
 })
 
+//vamos adicionar um registro na tabela postagems com o metodo create()
 app.post("/add",function(req,res){
    //create é uma promise, ou seja, vai ter then e o catch
     Post.create({
@@ -49,6 +63,32 @@ app.post("/add",function(req,res){
         res.send('Houve um erro no registro do post: '+ error)
      })
 })
+
+
+//vamos atulizar um registro na tabela postagems com o metodo update().
+app.post("/atualizar",function(req,res){
+     Post.update({titulo: req.body.titulo, conteudo: req.body.conteudo},{where:{'id':req.body.id}})
+     .then(function(){
+         res.redirect('/')
+    })
+      .catch(function(error){
+         res.send('Houve um erro ao atualizar o post: '+ error)
+      })
+ })
+
+
+ //vamos deletar um registro na tabela postagems com o metodo destroy()
+app.get("/deletar/:id",function(req,res){
+    //create é uma promise, ou seja, vai ter then e o catch
+     Post.destroy({where:{'id':req.params.id}})
+     .then(function(){
+         res.redirect('/')
+    })
+      .catch(function(error){
+         res.send('Houve um erro ao deletar o post: '+ error)
+      })
+ })
+
 
 app.listen(port, function(){
     console.log("Servidor rodando na porta: " + port)
